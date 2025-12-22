@@ -4,7 +4,7 @@ from src.Library.index import IndexDict
 
 
 class BaseLibrary:
-    """Базовый класс библиотеки"""
+    """базовая библиотека"""
 
     def __init__(self, name: str):
         self.name = name
@@ -30,27 +30,27 @@ class BaseLibrary:
 
 
 class Library(BaseLibrary):
-    """Производный класс библиотеки с расширенной функциональностью"""
+    """производный класс библиотеки с расширенным функционалом"""
 
     def __init__(self, name: str):
         super().__init__(name)
         self._index = IndexDict()
-        self._borrowed_books: Dict[str, str] = {}  # ISBN -> читатель
+        self._borrowed_books: Dict[str, str] = {}
 
     def __add__(self, book: Book) -> 'Library':
-        """Магический метод для добавления книги: library + book"""
+        """library + book"""
         self.add_book(book)
         return self
 
     def __call__(self, query: str) -> BookCollection:
-        """Магический метод для поиска: library('автор')"""
+        """library('автор')"""
         return self.search_books(query)
 
     def __repr__(self) -> str:
         return f"Library(name='{self.name}', books={len(self)}, borrowed={len(self._borrowed_books)})"
 
     def add_book(self, book: Book) -> None:
-        """Переопределение метода добавления книги с обновлением индексов"""
+        """Переопределение метода"""
         super().add_book(book)
         self._index.add_book(book)
 
@@ -60,27 +60,26 @@ class Library(BaseLibrary):
         if book and book in self._books:
             self._books.remove(book)
             self._index.remove_book(isbn)
-            # Также удаляем из списка выданных книг, если она там была
             if isbn in self._borrowed_books:
                 del self._borrowed_books[isbn]
             return True
         return False
 
     def search_books(self, query: str) -> BookCollection:
-        """Поиск книг по различным критериям"""
+        """Поиск книг"""
         result = BookCollection()
 
-        # Попробуем поиск по автору
+        # поиск по автору
         books_by_author = self._index.search_by_author(query)
         if books_by_author:
             result = BookCollection(books_by_author)
         else:
-            # Попробуем поиск по году
+            # поиск по году
             if query.isdigit():
                 books_by_year = self._index.search_by_year(int(query))
                 if books_by_year:
                     result = BookCollection(books_by_year)
-            # Если не нашли, ищем по жанру
+            # по жанру
             else:
                 result = self._books.filter_by_genre(query)
 
@@ -92,13 +91,13 @@ class Library(BaseLibrary):
             return False
 
         if isbn in self._borrowed_books:
-            return False  # Книга уже выдана
+            return False  # уже выдана
 
         self._borrowed_books[isbn] = reader
         return True
 
     def return_book(self, isbn: str) -> bool:
-        """Возврат книги в библиотеку"""
+        """Возврат книги читателем"""
         if isbn not in self._borrowed_books:
             return False
 
@@ -117,7 +116,7 @@ class Library(BaseLibrary):
 
 
 class DigitalLibrary(Library):
-    """Производный класс цифровой библиотеки"""
+    """цифровая библиотека"""
 
     def __init__(self, name: str, max_digital_copies: int = 1000):
         super().__init__(name)
@@ -142,7 +141,6 @@ class DigitalLibrary(Library):
         if isbn not in self._digital_copies or self._digital_copies[isbn] <= 0:
             return False
 
-        # В цифровой библиотеке можно выдать книгу множеству читателей
         self._digital_copies[isbn] -= 1
         return True
 

@@ -27,7 +27,7 @@ class IndexDict:
         return iter(self._isbn_index)
 
     def __contains__(self, isbn: str) -> bool:
-        """Проверка наличия ISBN в индексе"""
+        """наличия ISBN в индексе"""
         return isbn in self._isbn_index
 
     def __repr__(self) -> str:
