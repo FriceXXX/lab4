@@ -2,7 +2,7 @@ from src.Library.book import Book
 from typing import Optional, List, Dict, Union, Iterator
 
 class IndexDict:
-    """Пользовательская словарная коллекция для индексации книг"""
+    """пользовательская словарная коллекция для индексации книг"""
 
     def __init__(self):
         self._isbn_index: Dict[str, Book] = {}
@@ -55,16 +55,16 @@ class IndexDict:
 
         book = self._isbn_index[isbn]
 
-        # Удаление из индекса по ISBN
+        # по ISBN
         del self._isbn_index[isbn]
 
-        # Удаление из индекса по автору
+        # по автору
         if book.author in self._author_index:
             self._author_index[book.author].remove(book)
             if not self._author_index[book.author]:
                 del self._author_index[book.author]
 
-        # Удаление из индекса по году
+        # по году
         if book.year in self._year_index:
             self._year_index[book.year].remove(book)
             if not self._year_index[book.year]:
@@ -73,19 +73,15 @@ class IndexDict:
         return True
 
     def search_by_isbn(self, isbn: str) -> Optional[Book]:
-        """Поиск книги по ISBN"""
         return self._isbn_index.get(isbn)
 
     def search_by_author(self, author: str) -> List[Book]:
-        """Поиск книг по автору"""
         return self._author_index.get(author, [])
 
     def search_by_year(self, year: int) -> List[Book]:
-        """Поиск книг по году"""
         return self._year_index.get(year, [])
 
     def clear(self) -> None:
-        """Очистка всех индексов"""
         self._isbn_index.clear()
         self._author_index.clear()
         self._year_index.clear()

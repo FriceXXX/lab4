@@ -3,11 +3,6 @@ from src.Library.library import Library
 from src.samples import SAMPLE_BOOKS, AUTHORS, YEARS, READERS, GENRES
 
 def run_simulation(steps: int = 20, seed: int | None = None) -> None:
-    """
-    Args:
-        steps: количество шагов симуляции
-        seed: seed для генератора случайных чисел
-    """
     if seed is not None:
         random.seed(seed)
 
@@ -16,7 +11,7 @@ def run_simulation(steps: int = 20, seed: int | None = None) -> None:
     for n in range(3):
         book = random.choice(SAMPLE_BOOKS)
         library.add_book(book)
-        print(f"[ШАГ 0] Добавлена начальная книга: {book}")
+        print(f"ШАГ 0: Добавлена начальная книга: {book}")
 
     for step in range(1, steps + 1):
         print(f"\nШАГ {step}")
@@ -67,7 +62,7 @@ def run_simulation(steps: int = 20, seed: int | None = None) -> None:
 
         elif event == "update_index":
             library.update_index()
-            print(f"Обновлены индексы библиотеки. {library._index}")
+            print(f"Обновлены индексы. {library._index}")
 
         elif event == "borrow_book":
             book = library.get_random_book()
@@ -76,7 +71,7 @@ def run_simulation(steps: int = 20, seed: int | None = None) -> None:
                 if library.borrow_book(book.isbn, reader):
                     print(f"Книга '{book.title}' выдана читателю {reader}")
                 else:
-                    print(f"Книга '{book.title}' не может быть выдана (возможно, уже выдана)")
+                    print(f"Книга '{book.title}' не может быть выдана")
             else:
                 print("Нет книг для выдачи")
 

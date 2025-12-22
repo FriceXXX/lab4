@@ -18,7 +18,7 @@ class Book:
         return f"Book(title='{self.title}', author='{self.author}', year={self.year})"
 
 class BookCollection:
-    """Пользовательская списоковая коллекция книг"""
+    """пользовательская списоковая коллекция книг"""
 
     def __init__(self, books: Optional[List[Book]] = None):
         self._books = books if books is not None else []
@@ -35,7 +35,7 @@ class BookCollection:
         return self._books[key]
 
     def __contains__(self, book: Book) -> bool:
-        """Проверка наличия книги в коллекции"""
+        """наличие книги в коллекции"""
         return book in self._books
 
     def __repr__(self) -> str:
