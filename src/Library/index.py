@@ -38,12 +38,12 @@ class IndexDict:
         # Индекс по ISBN
         self._isbn_index[book.isbn] = book
 
-        # Индекс по автору
+        # по автору
         if book.author not in self._author_index:
             self._author_index[book.author] = []
         self._author_index[book.author].append(book)
 
-        # Индекс по году
+        # по году
         if book.year not in self._year_index:
             self._year_index[book.year] = []
         self._year_index[book.year].append(book)

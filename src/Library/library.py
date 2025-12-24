@@ -30,8 +30,6 @@ class BaseLibrary:
 
 
 class Library(BaseLibrary):
-    """производный класс библиотеки с расширенным функционалом"""
-
     def __init__(self, name: str):
         super().__init__(name)
         self._index = IndexDict()
@@ -74,7 +72,7 @@ class Library(BaseLibrary):
         if books_by_author:
             result = BookCollection(books_by_author)
         else:
-            # поиск по году
+            # по году
             if query.isdigit():
                 books_by_year = self._index.search_by_year(int(query))
                 if books_by_year:
@@ -137,7 +135,7 @@ class DigitalLibrary(Library):
         )
 
     def borrow_book(self, isbn: str, reader: str) -> bool:
-        """Переопределение выдачи книги для цифровой библиотеки"""
+        """Переопределение выдачи книги"""
         if isbn not in self._digital_copies or self._digital_copies[isbn] <= 0:
             return False
 
