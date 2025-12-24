@@ -21,7 +21,27 @@
     - ```return_book``` - возврат читателем
     - ```check_nonexistent``` - существование книги в библиотеке
  ---
+## Структура
+```text
+lab4/
+├── README.md
+├── requirements.txt
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── 
+│   ├── library/
+│   │   ├── __init__.py
+│   │   ├── book.py
+│   │   ├── index.py
+│   │   └── library.py
+│   └── simulation.py
+└── tests/
+    ├── __init__.py
+    └── test_library.py
+```
 
+---
  ## Запуск 
  ```python -m src.main.py```
 
