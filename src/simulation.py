@@ -62,7 +62,7 @@ def run_simulation(steps: int = 20, seed: int | None = None) -> None:
 
         elif event == "update_index":
             library.update_index()
-            print(f"Обновлены индексы. {library._index}")
+            print(f"Обновлены индексы: {library._index}")
 
         elif event == "borrow_book":
             book = library.get_random_book()
